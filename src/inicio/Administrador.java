@@ -1,6 +1,5 @@
 package inicio;
 
-<<<<<<< HEAD
 public class Administrador extends Usuario {
 	
 	protected Restaurante restaurante;
@@ -17,12 +16,4 @@ public class Administrador extends Usuario {
 	public void excluirRestaurante(String restaurante) {
 		
 	}
-	
-	
-=======
-public class Administrador {
-	public static void main(String[] args) {
-		System.out.println("agora vai");
-	}
->>>>>>> 49b489040848142ef27d03e7958cdb8bb4afd651
 }
