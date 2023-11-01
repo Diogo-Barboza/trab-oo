@@ -2,6 +2,6 @@ package inicio;
 
 public class Administrador {
 	public static void main(String[] args) {
-		System.out.println("nada");
+		System.out.println("agora vai");
 	}
 }
