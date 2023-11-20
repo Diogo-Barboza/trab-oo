@@ -2,13 +2,14 @@ package inicio;
 
 public class Administrador extends Usuario {
 	
-	protected Restaurante restaurante;
+	private String restaurante;
 
-	public Administrador(String nome, String email, String senha, Restaurante restaurante) {
+	public Administrador(String nome, String email, String senha, String restaurante) {
 		super(nome, email, senha);
 		this.restaurante = restaurante;
 	}
-	
+
+
 	public void cadastrarRestaurante(String nome, String categoria_restaurante, double taxa_entrega, 
 			String local_retirada) {
 		

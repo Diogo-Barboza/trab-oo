@@ -21,5 +21,13 @@ public abstract class Usuario {
 	public void cadastrarSenha(String s) {
 		senha = s;
 	}
+
+	public String getNome() {
+		return nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
 	
 }

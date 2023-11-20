@@ -2,19 +2,18 @@ package inicio;
 
 public class Restaurante {
 	private String categoria_restaurante;
-	private double taxa_entrega;
+	private String taxa_entrega;
 	private String descricao;
 	private String local_retirada;
 	private String nome;
 	
-	public Restaurante(String categoria_restaurante, double taxa_entrega, String descricao, String local_retirada,
-			String nome) {
+	public Restaurante(String nome, String categoria_restaurante, String taxa_entrega, String descricao, String local_retirada) {
 		super();
+		this.nome = nome;
 		this.categoria_restaurante = categoria_restaurante;
 		this.taxa_entrega = taxa_entrega;
 		this.descricao = descricao;
 		this.local_retirada = local_retirada;
-		this.nome = nome;
 	}
 
 	public String getCategoria_restaurante() {
@@ -25,11 +24,11 @@ public class Restaurante {
 		this.categoria_restaurante = categoria_restaurante;
 	}
 
-	public double getTaxa_entrega() {
+	public String getTaxa_entrega() {
 		return taxa_entrega;
 	}
 
-	public void setTaxa_entrega(double taxa_entrega) {
+	public void setTaxa_entrega(String taxa_entrega) {
 		this.taxa_entrega = taxa_entrega;
 	}
 
