@@ -2,11 +2,11 @@ package dados;
 import inicio.*;
 
 public class Dados {
-	 private Cliente[] clientes;
+	 private Cliente[] clientes; // USUARIOS NORMAIS QUE COMPRAM
 	 private int nClientes = 0;
-	 private Administrador[] administradores;
+	 private Administrador[] administradores; // USUARIO QUE TEM PERMISSAO DE CRIAR RESTAURANTE
 	 private int nAdmin = 0;
-	 private Restaurante[] restaurantes;
+	 private Restaurante[] restaurantes; // RESTAURATNTES
 	 private int nRestaurantes = 0;
 	 
 	 public Dados() {
@@ -83,7 +83,7 @@ public class Dados {
 		return restaurantes;
 	}
 	
-	public Restaurante getRestaurantes(int i) {
+	public Restaurante getRestaurante(int i) {
 		return restaurantes[i];
 	}
 	
@@ -91,7 +91,7 @@ public class Dados {
 		this.restaurantes = restaurantes;
 	}
 	
-	public void setRestaurente(int i, Restaurante r) {
+	public void setRestaurante(int i, Restaurante r) {
 		restaurantes[i] = r;
 	}
 	
@@ -107,8 +107,7 @@ public class Dados {
 		for(int i = 0; i < 10; i++) {
 			String s = String.valueOf(i);
 			clientes[i] = new Cliente("Cliente".concat(s), "email".concat(s), "senha".concat(s), "endereco".concat(s));
-			administradores[i] = new Administrador("Adm".concat(s), "email".concat(s), "senha".concat(s), 
-					"restaurante".concat(s)); 
+			administradores[i] = new Administrador("Adm".concat(s), "email".concat(s), "senha".concat(s)); 
 			restaurantes[i] = new Restaurante("Nome".concat(s), "categoria".concat(s), "taxa".concat(s), "descricao".concat(s), "retirada".concat(s));
 		}
 	}

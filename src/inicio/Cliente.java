@@ -8,10 +8,6 @@ public class Cliente extends Usuario{
 		super(nome, email, senha);
 		this.endereco = endereco;
 	}
-	
-	public void adicionarEndereco(String cep, String pais, String cidade, String bairro, String complemento,
-			int numero, String estado, String ponto_de_refencia) {
-		
-	}
+
 
 }
