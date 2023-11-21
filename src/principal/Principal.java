@@ -20,7 +20,7 @@ public class Principal {
 			case 0:
 				System.out.println("Obrigado por utilizar o sistema!");
 				break;
-			case 1:
+			case 1: // LOGIN ADM
 				if(lerDadosLoginAdministrador() == true) {
 					opAdmin = -1;
 					while(opAdmin != 0) {
@@ -30,14 +30,15 @@ public class Principal {
 						case 0:
 							System.out.println("Saindo do menu restaurante! Obrigado!");
 							break;
-						case 1:
+						case 1: // CADASTRAR
 							cadastrarRestaurante();
 							break;
-						case 2:
+						case 2: // EDITAR
+							editarRestaurante();	
 							break;
-						case 3:
+						case 3: // EXCLUIR
 							break;
-						case 4:
+						case 4: // LISTAR
 							listarRestaurantes();
 							break;
 						default:
@@ -49,16 +50,16 @@ public class Principal {
 					break;
 				}
 				break;
-			case 2:
+			case 2: // LOGIN CLIENTE
 				if(lerDadosLoginCliente() == true) {
 					System.out.println("DEU CERTO");
 					break;
 				}
 				break;
-			case 3:
+			case 3: // CRIAR CONTA ADM
 				cadastrarAdministrador();
 				break;
-			case 4:
+			case 4: // CRIAR CONTA CLIENTE
 				cadastrarCliente();
 				break;
 			case 5: //TESTE DE LISTAGEM/BUSCA
@@ -128,6 +129,33 @@ public class Principal {
 		local_retirada = entrada.nextLine();
 		Restaurante r = new Restaurante(nome, categoria_restaurante, taxa_entrega, descricao, local_retirada);
 		return r;	
+	}
+	
+	public static boolean editarRestaurante() {
+		int opc = -1;
+		String nome;
+		entrada.nextLine();
+		System.out.println("Digite o nome do restaurante que deseja editar: ");
+		nome = entrada.nextLine();
+		for(int i = 0; i < d.getnRestaurantes(); i++) {
+			if(d.getRestaurantes()[i].getNome().compareToIgnoreCase(nome) == 0) {
+				System.out.println("O restaurante a ser editado é: " + d.getRestaurantes()[i]);
+				System.out.println("0 - Cancelar\n1 - Continuar");
+				opc = entrada.nextInt();
+				if(opc == 1) {
+					Restaurante r = lerDadosRestaurante();
+					if(i < d.getnRestaurantes() && i >= 0) {
+						d.setRestaurante(i, r);
+						System.out.println("Dados editados com sucesso");
+						return true;
+					}
+				}else {
+					System.out.println("Operação cancelada!");
+					return false;
+				}
+			}
+		}
+		return false;
 	}
 	
 	public static boolean cadastrarAdministrador() {
@@ -253,6 +281,33 @@ public class Principal {
 		return resultado;
 	}
 	
+	public static boolean editarAdm() {
+		String email, senha;
+		int i = 0;
+		
+		entrada.nextLine();
+		System.out.println("Confirme seu email: ");
+		email = entrada.nextLine();
+		System.out.println("Confirme sua senha: ");
+		senha = entrada.nextLine();
+		
+		for(int c = 0; c < d.getnAdmin(); c++) {
+			if(d.getAdministradores()[c].getEmail().compareToIgnoreCase(email) == 0 && d.getAdministradores()[c].getSenha().compareTo(senha) == 0) {
+				i = c;
+				Administrador a = lerDadosAdministrador();
+				if(i < d.getnAdmin() && i >= 0) {
+					d.setAdministrador(i, a);
+					System.out.println("Dados editados com sucesso");
+					return true;
+				} else {
+					System.out.println("Voce escolheu um numero invalido!");
+					return false;
+				}
+			}
+		}
+		return false;
+	}
+	
 	
 	public static void listarRestaurantes() { 
 		for(int i = 0; i < d.getnRestaurantes(); i++) 
@@ -264,6 +319,12 @@ public class Principal {
 		for(int i = 0; i < d.getnClientes(); i++) 
 			System.out.println(i + " -> " + d.getClientes()[i].toString());
 
+	}
+	
+	public static void listarAdministradores() {
+		for(int i = 0; i < d.getnAdmin(); i++) {
+			System.out.println(i + "->" + d.getAdministradores()[i].toString());
+		}
 	}
 	
 }
