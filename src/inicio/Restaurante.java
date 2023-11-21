@@ -59,8 +59,8 @@ public class Restaurante {
 
 	@Override
 	public String toString() {
-		return "Restaurante [nome=" + nome + ", categoria_restaurante=" + categoria_restaurante + ", taxa_entrega="
-				+ taxa_entrega + ", descricao=" + descricao + ", local_retirada=" + local_retirada + "]";
+		return "Restaurante [Nome = " + nome + "\n Categoria do restaurante = " + categoria_restaurante + "\n taxa de entrega = "
+				+ taxa_entrega + "\n Descrição = " + descricao + "\n Local de retirada = " + local_retirada + "]";
 	}
 	
 	

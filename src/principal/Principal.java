@@ -10,10 +10,11 @@ public class Principal {
 	
 	public static void main(String[] args) {
 		int op = -1;
+		int opAdmin; // SELETOR DO CASE 1 - MENU DOS ADMINISTRADORES (CRIADORES DE RESTAURANTE)
 		//d.preencherDados();
 
 		while(op != 0) {
-			System.out.println(menuInicial());
+			System.out.println(menuInicial()); // IMPRIME O MENU
 			op = entrada.nextInt();
 			switch (op) {
 			case 0:
@@ -21,7 +22,30 @@ public class Principal {
 				break;
 			case 1:
 				if(lerDadosLoginAdministrador() == true) {
-					System.out.println("DEU CERTO");
+					opAdmin = -1;
+					while(opAdmin != 0) {
+						System.out.println(menuRestaurante()); // IMPRIMA O MENU DOS RESTARUANTES (ADMINISTRADOR)
+						opAdmin = entrada.nextInt();
+						switch (opAdmin) {
+						case 0:
+							System.out.println("Saindo do menu restaurante! Obrigado!");
+							break;
+						case 1:
+							cadastrarRestaurante();
+							break;
+						case 2:
+							break;
+						case 3:
+							break;
+						case 4:
+							listarRestaurantes();
+							break;
+						default:
+							System.out.println("\nOpção Invalida! Tente novamente.\n");
+							break;
+						}
+						
+					}
 					break;
 				}
 				break;
@@ -49,12 +73,10 @@ public class Principal {
 		}
 		
 		
-		
-
 	}
 
 	public static String menuInicial() {
-		String saida = new String("Escolha uma das opcoes a seguir:\n");
+		String saida = new String("Escolha uma das opções a seguir:\n");
 		saida = saida + "0 - Sair da aplicação\n";
 		saida = saida + "1 - Entrar como Restaurante\n";
 		saida = saida + "2 - Entrar como Cliente\n";
@@ -62,6 +84,16 @@ public class Principal {
 		saida = saida + "4 - Cadastrar conta de cliente\n";
 		return saida;
 		
+	}
+	
+	public static String menuRestaurante() {
+		String saida = new String("Escolha uma das opções a seguir:\n");
+		saida = saida + "0 - Voltar para menu principal\n";
+		saida = saida + "1 - Cadastrar Restaurante\n";
+		saida = saida + "2 - Editar Restaurante\n";
+		saida = saida + "3 - Excluir Restaurante\n";
+		saida = saida + "4 - Listar Restaurantes\n";
+		return saida;
 	}
 	
 	public static boolean cadastrarRestaurante() {
@@ -127,7 +159,6 @@ public class Principal {
 	}
 	
 	public static boolean lerDadosLoginAdministrador() {
-		boolean resultado = false;
 		String email;
 		String senha;
 		entrada.nextLine(); //esvazia dados do teclado
@@ -143,19 +174,19 @@ public class Principal {
 				if(d.getAdministradores()[i].getEmail().compareToIgnoreCase(email) == 0) {
 					if(d.getAdministradores()[i].getSenha().compareTo(senha) == 0) {
 						System.out.println("Login efetuado com sucesso!");
-						resultado = true;
+						return true;
 					}else {
 						System.out.println("Senha incorreta! Tente novamente.");
-						resultado = false;
+						return false;
 					}
 
 				}else {
 					System.out.println("Usuário não cadastrado! Registre-se.");
-					resultado = false;
-				}
+					return false;
+				}		
 			}
 		}
-		return resultado;
+		return false;
 	}
 	
 	

@@ -1,8 +1,9 @@
 package dados;
-import java.util.Arrays;
+import java.util.*;
 
 import inicio.*;
 
+@SuppressWarnings("unused")
 public class Dados {
 	 private Cliente[] clientes; // USUARIOS NORMAIS QUE COMPRAM
 	 private int nClientes = 0;
