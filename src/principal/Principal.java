@@ -10,7 +10,8 @@ public class Principal {
 	
 	public static void main(String[] args) {
 		int op = -1;
-		//d.preencherDados();
+		d.preencherDados();
+
 		while(op != 0) {
 			System.out.println(menuInicial());
 			op = entrada.nextInt();
@@ -23,9 +24,12 @@ public class Principal {
 			case 2:
 				break;
 			case 3:
-				
+				cadastrarRestaurante();
 				break;
 			case 4:
+				break;
+			case 5:
+				listarRestaurantes();
 				break;
 			default:
 				System.out.println("\nOpção Invalida! Tente novamente.\n");
@@ -98,6 +102,12 @@ public class Principal {
 		senha = entrada.nextLine();
 		Administrador a = new Administrador(nome, email, senha);
 		return a;
+	}
+	
+	public static void listarRestaurantes() {
+		for(int i = 0; i < d.getnRestaurantes(); i++) 
+			System.out.println(i + " -> " + d.getRestaurante(i).toString());
+
 	}
 	
 	

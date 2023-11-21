@@ -12,6 +12,7 @@ public class Dados {
 	 public Dados() {
 		 clientes = new Cliente[50];
 		 administradores = new Administrador[50];
+		 restaurantes = new Restaurante[50];
 		 
 	 }
 	 
