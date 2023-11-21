@@ -1,11 +1,12 @@
 package inicio;
 
 public class Restaurante {
+
+	private String nome;
 	private String categoria_restaurante;
 	private String taxa_entrega;
 	private String descricao;
 	private String local_retirada;
-	private String nome;
 	
 	public Restaurante(String nome, String categoria_restaurante, String taxa_entrega, String descricao, String local_retirada) {
 		super();
@@ -54,6 +55,12 @@ public class Restaurante {
 
 	public void setNome(String nome) {
 		this.nome = nome;
+	}
+
+	@Override
+	public String toString() {
+		return "Restaurante [nome=" + nome + ", categoria_restaurante=" + categoria_restaurante + ", taxa_entrega="
+				+ taxa_entrega + ", descricao=" + descricao + ", local_retirada=" + local_retirada + "]";
 	}
 	
 	

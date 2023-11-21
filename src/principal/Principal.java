@@ -1,5 +1,5 @@
 package principal;
-import java.util.Scanner;
+import java.util.*;
 import dados.*;
 import inicio.*;
 
@@ -10,7 +10,7 @@ public class Principal {
 	
 	public static void main(String[] args) {
 		int op = -1;
-		d.preencherDados();
+		//d.preencherDados();
 
 		while(op != 0) {
 			System.out.println(menuInicial());
@@ -20,16 +20,25 @@ public class Principal {
 				System.out.println("Obrigado por utilizar o sistema!");
 				break;
 			case 1:
+				if(lerDadosLoginAdministrador() == true) {
+					System.out.println("DEU CERTO");
+					break;
+				}
 				break;
 			case 2:
+				if(lerDadosLoginCliente() == true) {
+					System.out.println("DEU CERTO");
+					break;
+				}
 				break;
 			case 3:
-				cadastrarRestaurante();
+				cadastrarAdministrador();
 				break;
 			case 4:
+				cadastrarCliente();
 				break;
-			case 5:
-				listarRestaurantes();
+			case 5: //TESTE DE LISTAGEM/BUSCA
+
 				break;
 			default:
 				System.out.println("\nOpção Invalida! Tente novamente.\n");
@@ -57,7 +66,7 @@ public class Principal {
 	
 	public static boolean cadastrarRestaurante() {
 		Restaurante r = lerDadosRestaurante();
-		if(d.getnRestaurantes() < 100) {
+		if(d.getnRestaurantes() < 50) {
 			d.setRestaurante(d.getnRestaurantes(), r);
 			d.setnRestaurantes(d.getnRestaurantes() + 1);
 			System.out.println("Restaurante cadastrado com sucesso!\n");
@@ -89,6 +98,19 @@ public class Principal {
 		return r;	
 	}
 	
+	public static boolean cadastrarAdministrador() {
+		Administrador r = lerDadosAdministrador();
+		if(d.getnAdmin() < 50) {
+			d.setAdministrador(d.getnAdmin(), r);
+			d.setnAdmin(d.getnAdmin() + 1);
+			System.out.println("Administrador cadastrado com sucesso!\n");
+			return true;
+		} else {
+			System.out.println("Não foi possivel cadastrar o Administrador!\n");
+			return false;
+		}
+	}
+	
 	public static Administrador lerDadosAdministrador() {
 		String nome;
 		String email;
@@ -104,11 +126,113 @@ public class Principal {
 		return a;
 	}
 	
-	public static void listarRestaurantes() {
+	public static boolean lerDadosLoginAdministrador() {
+		boolean resultado = false;
+		String email;
+		String senha;
+		entrada.nextLine(); //esvazia dados do teclado
+		System.out.println("Digite seu email: ");
+		email = entrada.nextLine();
+		System.out.println("Digite sua senha: ");
+		senha = entrada.nextLine();
+		if(d.getnAdmin() == 0) {
+			System.out.println("SEM DADOS");
+			return false;
+		}else {
+			for(int i = 0; i < d.getnAdmin(); i++) {
+				if(d.getAdministradores()[i].getEmail().compareToIgnoreCase(email) == 0) {
+					if(d.getAdministradores()[i].getSenha().compareTo(senha) == 0) {
+						System.out.println("Login efetuado com sucesso!");
+						resultado = true;
+					}else {
+						System.out.println("Senha incorreta! Tente novamente.");
+						resultado = false;
+					}
+
+				}else {
+					System.out.println("Usuário não cadastrado! Registre-se.");
+					resultado = false;
+				}
+			}
+		}
+		return resultado;
+	}
+	
+	
+	public static boolean cadastrarCliente() {
+		Cliente r = lerDadosCliente();
+		if(d.getnClientes() < 50) {
+			d.setCliente(d.getnClientes(), r);
+			d.setnClientes(d.getnClientes() + 1);
+			System.out.println("Cliente cadastrado com sucesso!\n");
+			return true;
+		} else {
+			System.out.println("Não foi possivel cadastrar o Cliente!\n");
+			return false;
+		}
+	}
+	
+	public static Cliente lerDadosCliente() {
+		String nome;
+		String email;
+		String senha;
+		String endereco;
+		entrada.nextLine(); //esvazia dados do teclado
+		System.out.println("Digite seu nome: ");
+		nome = entrada.nextLine();
+		System.out.println("Digite seu email: ");
+		email = entrada.nextLine();
+		System.out.println("Digite sua senha: ");
+		senha = entrada.nextLine();
+		System.out.println("Digite seu endereço: ");
+		endereco = entrada.nextLine();
+		Cliente r = new Cliente(nome, email, senha, endereco);
+		return r;
+	}
+	
+	public static boolean lerDadosLoginCliente() {
+		boolean resultado = false;
+		String email;
+		String senha;
+		entrada.nextLine(); //esvazia dados do teclado
+		System.out.println("Digite seu email: ");
+		email = entrada.nextLine();
+		System.out.println("Digite sua senha: ");
+		senha = entrada.nextLine();
+		if(d.getnClientes() == 0) {
+			System.out.println("SEM DADOS");
+			return false;
+		}else {
+			for(int i = 0; i < d.getnClientes(); i++) {
+				if(d.getClientes()[i].getEmail().compareToIgnoreCase(email) == 0) {
+					if(d.getClientes()[i].getSenha().compareTo(senha) == 0) {
+						System.out.println("Login efetuado com sucesso!");
+						resultado = true;
+					}else {
+						System.out.println("Senha incorreta! Tente novamente.");
+						resultado = false;
+					}
+
+				}else {
+					System.out.println("Usuário não cadastrado! Registre-se.");
+					resultado = false;
+				}
+			}
+		}
+		return resultado;
+	}
+	
+	
+	public static void listarRestaurantes() { 
 		for(int i = 0; i < d.getnRestaurantes(); i++) 
-			System.out.println(i + " -> " + d.getRestaurante(i).toString());
+			System.out.println(i + " -> " + d.getRestaurantes()[i].toString());
 
 	}
 	
+	public static void listarClientes() { 
+		for(int i = 0; i < d.getnClientes(); i++) 
+			System.out.println(i + " -> " + d.getClientes()[i].toString());
+
+	}
 	
 }

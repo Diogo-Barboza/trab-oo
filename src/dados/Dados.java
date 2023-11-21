@@ -1,4 +1,6 @@
 package dados;
+import java.util.Arrays;
+
 import inicio.*;
 
 public class Dados {
@@ -64,6 +66,15 @@ public class Dados {
 		return s;
 	}
 	
+	public String[] getEmailAdministradores() {
+		String[] s = new String[nAdmin];
+		for(int i = 0; i < nAdmin; i++) {
+			s[i] = administradores[i].getEmail();
+		}
+		return s;
+	}
+	
+
 	public void setAdministradores(Administrador[] administradores) {
 		this.administradores = administradores;
 	}
@@ -104,16 +115,14 @@ public class Dados {
 		this.nRestaurantes = nRestaurantes;
 	}
 	
-	public void preencherDados() {
+	/*public void preencherDados() {
 		for(int i = 0; i < 10; i++) {
 			String s = String.valueOf(i);
 			clientes[i] = new Cliente("Cliente".concat(s), "email".concat(s), "senha".concat(s), "endereco".concat(s));
 			administradores[i] = new Administrador("Adm".concat(s), "email".concat(s), "senha".concat(s)); 
 			restaurantes[i] = new Restaurante("Nome".concat(s), "categoria".concat(s), "taxa".concat(s), "descricao".concat(s), "retirada".concat(s));
 		}
-	}
-	
-
+	}*/
 	
 	
 	

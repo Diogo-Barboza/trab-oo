@@ -6,4 +6,21 @@ public class Administrador extends Usuario {
 		super(nome, email, senha);
 	}
 
+	public int compareTo(String senha) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	public int compareToIgnoreCase(String email) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public String toString() {
+		return "Administrador [nome=" + nome + ", email=" + email + ", senha=" + senha + "]";
+	}
+
+
+
 }
