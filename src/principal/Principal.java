@@ -19,82 +19,83 @@ public class Principal {
 			System.out.println(menuInicial()); // IMPRIME O MENU
 			op = entrada.nextInt();
 			switch (op) {
-			case 0:
-				System.out.println("Obrigado por utilizar o sistema!");
-				break;
-			case 1: // LOGIN ADM
-				if (lerDadosLoginAdministrador() == true) {
-					opAdmin = -1;
-					while (opAdmin != 0) {
-						System.out.println(menuRestaurante()); // IMPRIMA O MENU DOS RESTARUANTES (ADMINISTRADOR)
-						opAdmin = entrada.nextInt();
-						switch (opAdmin) {
-						case 0:
-							System.out.println("Saindo do menu restaurante! Obrigado!");
-							break;
-						case 1: // CADASTRAR
-							cadastrarRestaurante();
-							break;
-						case 2: // EDITAR
-							editarRestaurante();
-							break;
-						case 3: // EXCLUIR
-							removerRestaurante();
-							break;
-						case 4: // LISTAR
-							listarRestaurantes();
-							break;
-						case 5:
-							cadastrarItem();
-							break;
-						default:
-							System.out.println("\nOpção Invalida! Tente novamente.\n");
-							break;
-						}
+				case 0:
+					System.out.println("Obrigado por utilizar o sistema!");
+					break;
+				case 1: // LOGIN ADM
+					if (lerDadosLoginAdministrador() == true) {
+						opAdmin = -1;
+						while (opAdmin != 0) {
+							System.out.println(menuRestaurante()); // IMPRIMA O MENU DOS RESTARUANTES (ADMINISTRADOR)
+							opAdmin = entrada.nextInt();
+							switch (opAdmin) {
+								case 0:
+									System.out.println("Saindo do menu restaurante! Obrigado!");
+									break;
+								case 1: // CADASTRAR
+									cadastrarRestaurante();
+									break;
+								case 2: // EDITAR
+									editarRestaurante();
+									break;
+								case 3: // EXCLUIR
+									removerRestaurante();
+									break;
+								case 4: // LISTAR
+									listarRestaurantes();
+									break;
+								case 5:
+									cadastrarItem();
+									break;
+								default:
+									System.out.println("\nOpção Invalida! Tente novamente.\n");
+									break;
+							}
 
+						}
+						break;
 					}
 					break;
-				}
-				break;
-			case 2: // LOGIN CLIENTE
-				if (lerDadosLoginCliente() == true) {
-					opCliente = -1;
-					while (opCliente != 0) {
-						System.out.println(menuCliente()); // IMPRIMA O MENU DOS CLIENTES (COMPRADOR)
-						opCliente = entrada.nextInt();
-						switch (opCliente) {
-						case 0: // VOLTAR AO MENU
-							System.out.println("Saindo do menu Cliente! Obrigado!");
-							break;
-						case 1: // EDITAR CONTA
-							editarCliente();
-							break;
-						case 2: // EXCLUIR CONTA
-							removerCliente();
-							break;
-						case 3: // BUSCAR RESTAURANTE
-							break;
-						default:
-							System.out.println("\nOpção Invalida! Tente novamente.\n");
-							break;
-						}
+				case 2: // LOGIN CLIENTE
+					if (lerDadosLoginCliente() == true) {
+						opCliente = -1;
+						while (opCliente != 0) {
+							System.out.println(menuCliente()); // IMPRIMA O MENU DOS CLIENTES (COMPRADOR)
+							opCliente = entrada.nextInt();
+							switch (opCliente) {
+								case 0: // VOLTAR AO MENU
+									System.out.println("Saindo do menu Cliente! Obrigado!");
+									break;
+								case 1: // EDITAR CONTA
+									editarCliente();
+									break;
+								case 2: // EXCLUIR CONTA
+									removerCliente();
+									break;
+								case 3: // BUSCAR RESTAURANTE
+									buscarRestaurante();
+									break;
+								default:
+									System.out.println("\nOpção Invalida! Tente novamente.\n");
+									break;
+							}
 
+						}
+						break;
 					}
 					break;
-				}
-				break;
-			case 3: // CRIAR CONTA ADM
-				cadastrarAdministrador();
-				break;
-			case 4: // CRIAR CONTA CLIENTE
-				cadastrarCliente();
-				break;
-			case 5: // TESTE DE LISTAGEM/BUSCA
+				case 3: // CRIAR CONTA ADM
+					cadastrarAdministrador();
+					break;
+				case 4: // CRIAR CONTA CLIENTE
+					cadastrarCliente();
+					break;
+				case 5: // TESTE DE LISTAGEM/BUSCA
 
-				break;
-			default:
-				System.out.println("\nOpção Invalida! Tente novamente.\n");
-				break;
+					break;
+				default:
+					System.out.println("\nOpção Invalida! Tente novamente.\n");
+					break;
 			}
 
 		}
@@ -225,7 +226,7 @@ public class Principal {
 
 	public static boolean cadastrarItem() {
 		Item it = lerDadosItens();
-		if (d.getnItens() < 100 ) {
+		if (d.getnItens() < 100) {
 			d.setItem(d.getnItens(), it);
 			d.setnItens(d.getnItens() + 1);
 			System.out.println("Item cadastrado com sucesso!\n");
@@ -469,6 +470,22 @@ public class Principal {
 				}
 			}
 		}
+	}
+
+	public static void buscarRestaurante() {
+		entrada.nextLine(); // Limpa o buffer do teclado
+		System.out.println("Digite o nome do restaurante que deseja buscar: ");
+		String nomeRestaurante = entrada.nextLine();
+
+		for (int i = 0; i < d.getnRestaurantes(); i++) {
+			if (d.getRestaurantes()[i].getNome().equalsIgnoreCase(nomeRestaurante)) {
+				System.out.println("Restaurante encontrado:");
+				System.out.println(d.getRestaurantes()[i].toString());
+				return;
+			}
+		}
+
+		System.out.println("Restaurante não encontrado.");
 	}
 
 	public static void swapListaClientes(int a) {
