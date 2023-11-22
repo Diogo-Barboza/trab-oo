@@ -11,6 +11,8 @@ public class Dados {
 	 private int nAdmin = 0;
 	 private Restaurante[] restaurantes; // RESTAURATNTES
 	 private int nRestaurantes = 0;
+	 private Item[] itens; // ITENS DO CARDÁPIO
+	 private int nItens = 0; 
 	 
 	 public Dados() {
 		 clientes = new Cliente[50];
@@ -114,6 +116,32 @@ public class Dados {
 	
 	public void setnRestaurantes(int nRestaurantes) {
 		this.nRestaurantes = nRestaurantes;
+	}
+	
+// itens 
+	
+	public Item[] getItem() {
+		return itens;
+	}
+	
+	public Item getItem(int i) {
+		return itens[i];
+	}
+	
+	public void setItem(Item[] itens) {
+		this.itens = itens;
+	}
+	
+	public void setItem(int i, Item r) {
+		itens[i] = r;
+	}
+	
+	public int getnItens() {
+		return nItens;
+	}
+	
+	public void setnItens(int nItens) {
+		this.nItens = nItens;
 	}
 	
 	/*public void preencherDados() {
