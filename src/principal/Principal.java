@@ -66,6 +66,7 @@ public class Principal {
 							editarCliente();
 							break;
 						case 2: // EXCLUIR CONTA
+							removerCliente();
 							break;
 						case 3: // BUSCAR RESTAURANTE
 							break;
@@ -399,6 +400,39 @@ public class Principal {
 			}
 		}
 		return false;
+	}
+	
+	public static void removerCliente() {
+		int opc = -1;
+		String email, senha;
+		
+		clearBuffer(entrada);
+		System.out.println("Confirme seu email: ");
+		email = entrada.nextLine();
+		System.out.println("Confirme sua senha: ");
+		senha = entrada.nextLine();
+		for(int i = 0; i < d.getnClientes(); i++) {
+			if(d.getClientes()[i].getEmail().compareToIgnoreCase(email) == 0) {
+				System.out.println("O cliente a ser removido é: " + d.getClientes()[i]);
+				System.out.println("0 - Cancelar\n1 - Continuar");
+				opc = entrada.nextInt();
+				if(opc == 1) {
+					if(i < d.getnClientes() && i >= 0) {
+						swapListaClientes(i); 
+						d.setCliente(d.getnClientes(), null);
+						d.setnClientes(d.getnClientes() - 1);
+						System.out.println("Cliente removido com sucesso!");
+					}
+				}else {
+					System.out.println("Operação cancelada!");
+				}
+			}
+		}
+	}
+	
+	public static void swapListaClientes(int a) {
+		for(int i = a; i < d.getnClientes() - 1; i++) 
+			d.setCliente(i, d.getClientes(i + 1));
 	}
 	
 	public static void listarRestaurantes() { 
