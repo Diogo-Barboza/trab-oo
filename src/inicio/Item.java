@@ -7,7 +7,7 @@ public class Item {
 	private String preco;
 	private String nome;
 	
-	public Item (String nome, String descricao, String restaurante_item, String preco, String categoria) {
+	public Item (String nome, String categoria, String restaurante_item, String descricao, String preco) {
 		this.nome = nome;
 		this.descricao = descricao;
 		this.restaurante_item = restaurante_item;
@@ -59,6 +59,11 @@ public class Item {
 	public String toString() {
 		return "Item [Nome = " + nome + "\n Categoria = " + categoria + "\n preco = "
 				+ preco + "\n Descrição = " + descricao + "\n Restaurante deste item = " + restaurante_item + "]\n";
+	}
+
+	public boolean equalsIgnoreCase(String nomeItem) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 }

@@ -75,6 +75,9 @@ public class Principal {
 								case 3: // BUSCAR RESTAURANTE
 									buscarRestaurante();
 									break;
+								case 4: // ADICIONAR ITEM AO CARRINHO
+									adicionarCarrinho();
+									break;
 								default:
 									System.out.println("\nOpção Invalida! Tente novamente.\n");
 									break;
@@ -130,6 +133,7 @@ public class Principal {
 		saida = saida + "1 - Editar conta\n";
 		saida = saida + "2 - Excluir conta\n";
 		saida = saida + "3 - Buscar Restaurantes\n";
+		saida = saida + "4 - Adicionar Item ao carrinho";
 		return saida;
 	}
 
@@ -226,7 +230,7 @@ public class Principal {
 
 	public static boolean cadastrarItem() {
 		Item it = lerDadosItens();
-		if (d.getnItens() < 100) {
+		if (d.getnItens() < 50) {
 			d.setItem(d.getnItens(), it);
 			d.setnItens(d.getnItens() + 1);
 			System.out.println("Item cadastrado com sucesso!\n");
@@ -257,6 +261,40 @@ public class Principal {
 		Item it = new Item(nome, categoria, descricao, restaurante_item, preco);
 		return it;
 	}
+	
+	public static void adicionarCarrinho() {
+		int achou = 0;
+		clearBuffer(entrada);
+		System.out.println("Digite o nome do item desejado: ");
+		String nomeItem = entrada.nextLine();
+		
+		for (int i = 0; i < d.getnItens(); i++) {
+			if(d.getItens()[i].getNome().equalsIgnoreCase(nomeItem) == true) {
+				System.out.println(i + "->" + d.getItens()[i].toString());
+				achou++;
+			}
+		}
+		if(achou > 0) {
+			System.out.println("Digite a opcao desejada para adicionar: ");
+			int opc = entrada.nextInt();
+			System.out.println("Adicionar Observação: ");
+			String obs = entrada.nextLine();
+			Carrinho c = new Carrinho(d.getItens()[opc].getNome(), d.getItens()[opc].getRestaurante_item(), d.getItens()[opc].getPreco(), obs);
+			if (d.getnItensCarrinho() < 50) {
+				d.setCarrinho(d.getnItensCarrinho(), c);
+				d.setnItensCarrinho(d.getnItensCarrinho() + 1);
+				System.out.println("Item adicionado ao carrinho com sucesso!\n");
+			} else {
+				System.out.println("Não foi possivel adicionar o Item ao carrinho!\n");
+			}
+		}
+		if(d.getnItens() == 0) {
+			System.out.println("Sem itens cadastrados");
+		}
+		
+	}
+	
+	
 
 	public static boolean cadastrarAdministrador() {
 		Administrador r = lerDadosAdministrador();
@@ -446,6 +484,7 @@ public class Principal {
 
 	public static void removerCliente() {
 		int opc = -1;
+		@SuppressWarnings("unused")
 		String email, senha;
 
 		clearBuffer(entrada);

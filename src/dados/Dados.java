@@ -6,21 +6,26 @@ import inicio.*;
 @SuppressWarnings("unused")
 public class Dados {
 	 private Cliente[] clientes; // USUARIOS NORMAIS QUE COMPRAM
-	 private int nClientes = 0;
+	 private int nClientes = 0; // CONTADOR DE CLIENTES
 	 private Administrador[] administradores; // USUARIO QUE TEM PERMISSAO DE CRIAR RESTAURANTE
-	 private int nAdmin = 0;
+	 private int nAdmin = 0; //CONTADOR DE USUARIOS ADMIN
 	 private Restaurante[] restaurantes; // RESTAURATNTES
 	 private int nRestaurantes = 0;
 	 private Item[] itens; // ITENS DO CARDÁPIO
-	 private int nItens = 0; 
+	 private int nItens = 0; // CONTADOR DE ITENS
+	 private Carrinho[] carrinhos; // CARRINHO DO CLIENTE
+	 private int nItensCarrinho = 0; // CONTAODOR DE ITENS NO CARRINHO
 	 
 	 public Dados() {
 		 clientes = new Cliente[50];
 		 administradores = new Administrador[50];
 		 restaurantes = new Restaurante[50];
 		 itens = new Item[50];
+		 carrinhos = new Carrinho[50];
 		 
 	 }
+	 
+	 // Clientes
 	 
 	 public Cliente[] getClientes() {
 		 return clientes;
@@ -30,13 +35,6 @@ public class Dados {
 		 return clientes[i];
 	 }
 	 
-	public String[] getNomeClientes() {
-		String[] s = new String[nClientes];
-		for(int i = 0; i < nClientes; i++) {
-			s[i] = clientes[i].getNome();
-		}
-		return s;
-	}
 
 	public void setClientes(Cliente[] clientes) {
 		this.clientes = clientes;
@@ -54,6 +52,8 @@ public class Dados {
 		this.nClientes = nClientes;
 	}
 	
+	//Adiministradores
+	
 	public Administrador[] getAdministradores() {
 		return administradores;
 	}
@@ -62,23 +62,6 @@ public class Dados {
 		return administradores[i];
 	}
 	
-	public String[] getNomeAdministradores() {
-		String[] s = new String[nAdmin];
-		for(int i = 0; i < nAdmin; i++) {
-			s[i] = administradores[i].getNome();
-		}
-		return s;
-	}
-	
-	public String[] getEmailAdministradores() {
-		String[] s = new String[nAdmin];
-		for(int i = 0; i < nAdmin; i++) {
-			s[i] = administradores[i].getEmail();
-		}
-		return s;
-	}
-	
-
 	public void setAdministradores(Administrador[] administradores) {
 		this.administradores = administradores;
 	}
@@ -94,6 +77,8 @@ public class Dados {
 	public void setnAdmin(int nAdmin) {
 		this.nAdmin = nAdmin;
 	}
+	
+	//Restaurantes
 	
 	public Restaurante[] getRestaurantes() {
 		return restaurantes;
@@ -143,6 +128,31 @@ public class Dados {
 	
 	public void setnItens(int nItens) {
 		this.nItens = nItens;
+	}
+	
+	// Carrinho
+	public Carrinho[] getcarrinhos() {
+		return carrinhos;
+	}
+	
+	public Carrinho getCarrinho(int i) {
+		return carrinhos[i];
+	}
+	
+	public void setCarrinhos(Carrinho[] carrinhos) {
+		this.carrinhos = carrinhos;
+	}
+	
+	public void setCarrinho(int i, Carrinho c) {
+		carrinhos[i] = c;
+	}
+	
+	public int getnItensCarrinho() {
+		return nItensCarrinho;
+	}
+	
+	public void setnItensCarrinho(int nItensCarrinho) {
+		this.nItensCarrinho = nItensCarrinho;
 	}
 	
 	/*public void preencherDados() {
