@@ -37,6 +37,7 @@ public class Principal {
 							editarRestaurante();	
 							break;
 						case 3: // EXCLUIR
+							removerRestaurante();
 							break;
 						case 4: // LISTAR
 							listarRestaurantes();
@@ -158,6 +159,36 @@ public class Principal {
 		return false;
 	}
 	
+	public static void removerRestaurante() {
+		int opc = -1;
+		String nome;
+		entrada.nextLine();
+		System.out.println("Digite o nome do restaurante que deseja remover: ");
+		nome = entrada.nextLine();
+		for(int i = 0; i < d.getnRestaurantes(); i++) {
+			if(d.getRestaurantes()[i].getNome().compareToIgnoreCase(nome) == 0) {
+				System.out.println("O restaurante a ser removido é: " + d.getRestaurantes()[i]);
+				System.out.println("0 - Cancelar\n1 - Continuar");
+				opc = entrada.nextInt();
+				if(opc == 1) {
+					if(i < d.getnRestaurantes() && i >= 0) {
+						swapListaRestaurantes(i); 
+						d.setRestaurante(d.getnRestaurantes(), null);
+						d.setnRestaurantes(d.getnRestaurantes() - 1);
+						System.out.println("Restaurante removido com sucesso!");
+					}
+				}else {
+					System.out.println("Operação cancelada!");
+				}
+			}
+		}
+	}
+	
+	public static void swapListaRestaurantes(int a) {
+		for(int i = a; i < d.getnRestaurantes() - 1; i++) 
+			d.setRestaurante(i, d.getRestaurante(i+1));
+	}
+	
 	public static boolean cadastrarAdministrador() {
 		Administrador r = lerDadosAdministrador();
 		if(d.getnAdmin() < 50) {
@@ -217,6 +248,32 @@ public class Principal {
 		return false;
 	}
 	
+	public static boolean editarAdm() {
+		String email, senha;
+		int i = 0;
+		
+		entrada.nextLine();
+		System.out.println("Confirme seu email: ");
+		email = entrada.nextLine();
+		System.out.println("Confirme sua senha: ");
+		senha = entrada.nextLine();
+		
+		for(int c = 0; c < d.getnAdmin(); c++) {
+			if(d.getAdministradores()[c].getEmail().compareToIgnoreCase(email) == 0 && d.getAdministradores()[c].getSenha().compareTo(senha) == 0) {
+				i = c;
+				Administrador a = lerDadosAdministrador();
+				if(i < d.getnAdmin() && i >= 0) {
+					d.setAdministrador(i, a);
+					System.out.println("Dados editados com sucesso");
+					return true;
+				} else {
+					System.out.println("Voce escolheu um numero invalido!");
+					return false;
+				}
+			}
+		}
+		return false;
+	}
 	
 	public static boolean cadastrarCliente() {
 		Cliente r = lerDadosCliente();
@@ -280,34 +337,6 @@ public class Principal {
 		}
 		return resultado;
 	}
-	
-	public static boolean editarAdm() {
-		String email, senha;
-		int i = 0;
-		
-		entrada.nextLine();
-		System.out.println("Confirme seu email: ");
-		email = entrada.nextLine();
-		System.out.println("Confirme sua senha: ");
-		senha = entrada.nextLine();
-		
-		for(int c = 0; c < d.getnAdmin(); c++) {
-			if(d.getAdministradores()[c].getEmail().compareToIgnoreCase(email) == 0 && d.getAdministradores()[c].getSenha().compareTo(senha) == 0) {
-				i = c;
-				Administrador a = lerDadosAdministrador();
-				if(i < d.getnAdmin() && i >= 0) {
-					d.setAdministrador(i, a);
-					System.out.println("Dados editados com sucesso");
-					return true;
-				} else {
-					System.out.println("Voce escolheu um numero invalido!");
-					return false;
-				}
-			}
-		}
-		return false;
-	}
-	
 	
 	public static void listarRestaurantes() { 
 		for(int i = 0; i < d.getnRestaurantes(); i++) 
