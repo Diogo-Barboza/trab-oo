@@ -3,6 +3,7 @@ package principal;
 import java.util.*;
 import dados.*;
 import inicio.*;
+import java.lang.*;
 
 public class Principal {
 
@@ -13,6 +14,7 @@ public class Principal {
 		int op = -1;
 		int opAdmin; // SELETOR DO CASE 1 - MENU DOS ADMINISTRADORES (CRIADORES DE RESTAURANTE)
 		int opCliente; // SELETOR DO CASE 2 - MENU DOS CLIENTES (COMPRADORES DOS RESTAURANTES)
+		int opCarrinho; // SELETOR DENTRO DE CARRINHO;
 		// d.preencherDados();
 
 		while (op != 0) {
@@ -71,12 +73,36 @@ public class Principal {
 									break;
 								case 2: // EXCLUIR CONTA
 									removerCliente();
+									opCliente = 0;
 									break;
 								case 3: // BUSCAR RESTAURANTE
 									buscarRestaurante();
 									break;
 								case 4: // ADICIONAR ITEM AO CARRINHO
-									adicionarCarrinho();
+									opCarrinho = -1;
+									while(opCarrinho != 0) {
+										System.out.println(menuCarrinho()); // IMPRIME O MEU DENTRO DO CARRINHO
+										opCarrinho = entrada.nextInt();
+										switch (opCarrinho) {
+										case 0:
+											opCarrinho = 0;
+											break;
+										case 1:
+											adicionarCarrinho();
+											break;
+										case 2: // excluir item
+											removerItemCarrinho();
+											break;
+										case 3: // Listar Carrinho
+											listarCarrinho();
+											break;
+										case 4: // Simulação de pagar e zerar o carrinho
+											break;
+										default:
+												System.out.println("\\nOpção Invalida! Tente novamente.\\n");
+												break;
+										}
+									}
 									break;
 								default:
 									System.out.println("\nOpção Invalida! Tente novamente.\n");
@@ -137,6 +163,16 @@ public class Principal {
 		return saida;
 	}
 
+	public static String menuCarrinho() {
+		String saida = new String("Escolha uma das opções a seguir: \n");
+		saida = saida + "0 - Sair no menu\n";
+		saida = saida + "1 - Adicionar ao carrinho\n";
+		saida = saida + "2 - Excluir item do carrinho\n";
+		saida = saida + "3 - Listar itens do carrinho\n";
+		saida = saida + "4 - Pagar\n";
+		return saida;
+	}
+	
 	public static boolean cadastrarRestaurante() {
 		Restaurante r = lerDadosRestaurante();
 		if (d.getnRestaurantes() < 50) {
@@ -278,6 +314,7 @@ public class Principal {
 			System.out.println("Digite a opcao desejada para adicionar: ");
 			int opc = entrada.nextInt();
 			System.out.println("Adicionar Observação: ");
+			clearBuffer(entrada);
 			String obs = entrada.nextLine();
 			Carrinho c = new Carrinho(d.getItens()[opc].getNome(), d.getItens()[opc].getRestaurante_item(), d.getItens()[opc].getPreco(), obs);
 			if (d.getnItensCarrinho() < 50) {
@@ -287,15 +324,29 @@ public class Principal {
 			} else {
 				System.out.println("Não foi possivel adicionar o Item ao carrinho!\n");
 			}
+		}else {
+			System.out.println("Item não foi encontrado.");
 		}
 		if(d.getnItens() == 0) {
-			System.out.println("Sem itens cadastrados");
+			System.out.println("Sem itens cadastrados.");
 		}
+		clearBuffer(entrada);
 		
 	}
 	
+	public static double precoCarrinho() { // Converte o preco de string para double e faz a soma de todos os itens do carrinho
+		double soma = 0;
+		for(int i = 0; i < d.getnItensCarrinho(); i++) {
+			String num = d.getCarrinhos()[i].getPreco();
+			double preco = Double.valueOf(num);
+			soma = soma + preco;	
+		}
+		if(d.getnItensCarrinho() == 0) {
+			System.out.println("Ação impossível. Sem item no carrinho!");
+		}
+		return soma;
+	}
 	
-
 	public static boolean cadastrarAdministrador() {
 		Administrador r = lerDadosAdministrador();
 		if (d.getnAdmin() < 50) {
@@ -543,6 +594,38 @@ public class Principal {
 		for (int i = 0; i < d.getnRestaurantes(); i++)
 			System.out.println(i + " -> " + d.getRestaurantes()[i].toString());
 
+	}
+	
+	public static void removerItemCarrinho() {
+		System.out.println("Escolha um dos itens a seguir para ser removido:\n");
+		listarCarrinho();
+		clearBuffer(entrada);
+		int i = entrada.nextInt();
+		if(i < d.getnItensCarrinho() && i > 0) {
+			swapListaCarrinho(i);
+			d.setCarrinho(d.getnItensCarrinho(), null);
+			d.setnItensCarrinho(d.getnItensCarrinho() - 1);
+			System.out.println("Item removido com sucesso");
+		} else {
+			System.out.println("Voce escolheu um numero invalido!");
+		}
+		
+	}
+	
+	public static void swapListaCarrinho(int a) {
+		for(int i = a; i < d.getnItensCarrinho() - 1; i++) 
+			d.setCarrinho(i, d.getCarrinho(i+1));
+	}
+	
+	public static void listarCarrinho() {
+		if(d.getnItensCarrinho() != 0) {
+			for(int i = 0; i < d.getnItensCarrinho(); i++) {
+				System.out.println(i + "->" + d.getCarrinhos()[i].toString());
+			}
+			System.out.println("VALOR TOTAL -> R$" + precoCarrinho());
+		}else {
+			System.out.println("Carrinho vazio!");
+		}
 	}
 
 	public static void listarClientes() {

@@ -131,7 +131,7 @@ public class Dados {
 	}
 	
 	// Carrinho
-	public Carrinho[] getcarrinhos() {
+	public Carrinho[] getCarrinhos() {
 		return carrinhos;
 	}
 	
