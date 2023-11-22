@@ -121,7 +121,7 @@ public class Dados {
 	
 // itens 
 	
-	public Item[] getItem() {
+	public Item[] getItens() {
 		return itens;
 	}
 	
@@ -129,7 +129,7 @@ public class Dados {
 		return itens[i];
 	}
 	
-	public void setItem(Item[] itens) {
+	public void setItens(Item[] itens) {
 		this.itens = itens;
 	}
 	
