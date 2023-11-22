@@ -11,6 +11,7 @@ public class Principal {
 	public static void main(String[] args) {
 		int op = -1;
 		int opAdmin; // SELETOR DO CASE 1 - MENU DOS ADMINISTRADORES (CRIADORES DE RESTAURANTE)
+		int opCliente; // SELETOR DO CASE 2 - MENU DOS CLIENTES (COMPRADORES DOS RESTAURANTES)
 		//d.preencherDados();
 
 		while(op != 0) {
@@ -53,7 +54,27 @@ public class Principal {
 				break;
 			case 2: // LOGIN CLIENTE
 				if(lerDadosLoginCliente() == true) {
-					System.out.println("DEU CERTO");
+					opCliente = -1;
+					while(opCliente != 0) {
+						System.out.println(menuCliente()); // IMPRIMA O MENU DOS CLIENTES (COMPRADOR)
+						opCliente = entrada.nextInt();
+						switch (opCliente) {
+						case 0: // VOLTAR AO MENU
+							System.out.println("Saindo do menu Cliente! Obrigado!");
+							break;	
+						case 1: // EDITAR CONTA
+							editarCliente();
+							break;
+						case 2: // EXCLUIR CONTA
+							break;
+						case 3: // BUSCAR RESTAURANTE
+							break;
+						default:
+							System.out.println("\nOpção Invalida! Tente novamente.\n");
+							break;
+						}
+						
+					}
 					break;
 				}
 				break;
@@ -96,6 +117,15 @@ public class Principal {
 		saida = saida + "3 - Excluir Restaurante\n";
 		saida = saida + "4 - Listar Restaurantes\n";
 		return saida;
+	}
+	
+	public static String menuCliente() {
+		String saida = new String("Escolha uma das opções a seguir: \n");
+		saida = saida + "0 - Voltar para menu principal\n";
+		saida = saida + "1 - Editar conta\n";
+		saida = saida + "2 - Excluir conta\n";
+		saida = saida + "3 - Buscar Restaurantes\n";
+		return saida;	 
 	}
 	
 	public static boolean cadastrarRestaurante() {
@@ -218,6 +248,7 @@ public class Principal {
 	}
 	
 	public static boolean lerDadosLoginAdministrador() {
+		boolean resultado = false;
 		String email;
 		String senha;
 		entrada.nextLine(); //esvazia dados do teclado
@@ -233,30 +264,32 @@ public class Principal {
 				if(d.getAdministradores()[i].getEmail().compareToIgnoreCase(email) == 0) {
 					if(d.getAdministradores()[i].getSenha().compareTo(senha) == 0) {
 						System.out.println("Login efetuado com sucesso!");
-						return true;
+						resultado = true;
+						break;
 					}else {
 						System.out.println("Senha incorreta! Tente novamente.");
+						resultado = false;
 						return false;
-					}
-
-				}else {
-					System.out.println("Usuário não cadastrado! Registre-se.");
-					return false;
+					}	
 				}		
+			}if(resultado == false) {
+				System.out.println("Usuário não cadastrado! Registre-se.");
+				return false;
 			}
 		}
-		return false;
+		return resultado;
 	}
 	
 	public static boolean editarAdm() {
 		String email, senha;
 		int i = 0;
 		
-		entrada.nextLine();
+		entrada.nextLine();// LIMPA TECLADO
 		System.out.println("Confirme seu email: ");
 		email = entrada.nextLine();
 		System.out.println("Confirme sua senha: ");
 		senha = entrada.nextLine();
+		entrada.nextLine(); //LIMPA TECLADO
 		
 		for(int c = 0; c < d.getnAdmin(); c++) {
 			if(d.getAdministradores()[c].getEmail().compareToIgnoreCase(email) == 0 && d.getAdministradores()[c].getSenha().compareTo(senha) == 0) {
@@ -293,7 +326,8 @@ public class Principal {
 		String email;
 		String senha;
 		String endereco;
-		entrada.nextLine(); //esvazia dados do teclado
+		//entrada.nextLine(); //esvazia dados do teclado
+		clearBuffer(entrada);
 		System.out.println("Digite seu nome: ");
 		nome = entrada.nextLine();
 		System.out.println("Digite seu email: ");
@@ -324,18 +358,47 @@ public class Principal {
 					if(d.getClientes()[i].getSenha().compareTo(senha) == 0) {
 						System.out.println("Login efetuado com sucesso!");
 						resultado = true;
+						return true;
 					}else {
 						System.out.println("Senha incorreta! Tente novamente.");
 						resultado = false;
+						return false;
 					}
 
-				}else {
-					System.out.println("Usuário não cadastrado! Registre-se.");
-					resultado = false;
 				}
+			}if(resultado == false) {
+				System.out.println("Usuário não cadastrado! Registre-se.");
+				resultado = false;
 			}
 		}
+	
 		return resultado;
+	}
+	
+	public static boolean editarCliente() {
+		String email, senha;
+		int i = 0;
+		
+		clearBuffer(entrada);
+		System.out.println("Confirme seu email: ");
+		email = entrada.nextLine();
+		System.out.println("Confirme sua senha: ");
+		senha = entrada.nextLine();
+		for(int c = 0; c < d.getnClientes(); c++) {
+			if(d.getClientes()[c].getEmail().compareToIgnoreCase(email) == 0 && d.getClientes()[c].getSenha().compareTo(senha) == 0) {
+				i = c;
+				Cliente a = lerDadosCliente();
+				if(i < d.getnClientes() && i >= 0) {
+					d.setCliente(i, a);
+					System.out.println("Dados editados com sucesso");
+					return true;
+				}
+			}else {
+				System.out.println("Dados incorretos. Tente novamente!");
+				return false;
+			}
+		}
+		return false;
 	}
 	
 	public static void listarRestaurantes() { 
@@ -356,4 +419,9 @@ public class Principal {
 		}
 	}
 	
+    private static void clearBuffer(Scanner scanner) {
+        if (scanner.hasNextLine()) {
+            scanner.nextLine();
+        }
+    }
 }
