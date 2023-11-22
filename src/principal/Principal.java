@@ -473,19 +473,26 @@ public class Principal {
 	}
 
 	public static void buscarRestaurante() {
-		entrada.nextLine(); // Limpa o buffer do teclado
+		entrada.nextLine();
 		System.out.println("Digite o nome do restaurante que deseja buscar: ");
 		String nomeRestaurante = entrada.nextLine();
 
+		List<Restaurante> restaurantesEncontrados = new ArrayList<>();
+
 		for (int i = 0; i < d.getnRestaurantes(); i++) {
 			if (d.getRestaurantes()[i].getNome().equalsIgnoreCase(nomeRestaurante)) {
-				System.out.println("Restaurante encontrado:");
-				System.out.println(d.getRestaurantes()[i].toString());
-				return;
+				restaurantesEncontrados.add(d.getRestaurantes()[i]);
 			}
 		}
 
-		System.out.println("Restaurante não encontrado.");
+		if (!restaurantesEncontrados.isEmpty()) {
+			System.out.println("Restaurantes encontrados:");
+			for (Restaurante restaurante : restaurantesEncontrados) {
+				System.out.println(restaurante.toString());
+			}
+		} else {
+			System.out.println("Restaurante não encontrado.");
+		}
 	}
 
 	public static void swapListaClientes(int a) {
