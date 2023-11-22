@@ -18,6 +18,7 @@ public class Dados {
 		 clientes = new Cliente[50];
 		 administradores = new Administrador[50];
 		 restaurantes = new Restaurante[50];
+		 itens = new Item[50];
 		 
 	 }
 	 
