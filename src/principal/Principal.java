@@ -3,7 +3,6 @@ package principal;
 import java.util.*;
 import dados.*;
 import inicio.*;
-import java.lang.*;
 
 public class Principal {
 
@@ -57,6 +56,10 @@ public class Principal {
 									break;
 								case 8:
 									removerItem();
+									break;
+								case 9:
+									removerAdmin();
+									opAdmin = 0;
 									break;
 								default:
 									System.out.println("\nOpção Invalida! Tente novamente.\n");
@@ -167,6 +170,7 @@ public class Principal {
 		saida = saida + "6 - Editar Item\n";
 		saida = saida + "7 - Listar Itens do Cardápio\n";
 		saida = saida + "8 - Excluir Item do Cardápio\n";
+		saida = saida + "9 - Exlcuir conta";
 		return saida;
 	}
 
@@ -610,6 +614,41 @@ public class Principal {
 			}
 		}
 		return false;
+	}
+	
+	static void removerAdmin(){
+		int opc = -1;
+		@SuppressWarnings("unused")
+		String email, senha;
+
+		clearBuffer(entrada);
+		System.out.println("Confirme seu email: ");
+		email = entrada.nextLine();
+		System.out.println("Confirme sua senha: ");
+		senha = entrada.nextLine();
+		for (int i = 0; i < d.getnAdmin(); i++) {
+			if (d.getAdministradores()[i].getEmail().compareToIgnoreCase(email) == 0) {
+				System.out.println("A conta a ser removida é: " + d.getAdministradores()[i]);
+				System.out.println("0 - Cancelar\n1 - Continuar");
+				opc = entrada.nextInt();
+				if (opc == 1) {
+					if (i < d.getnAdmin() && i >= 0) {
+						swapListaAdmin(i);
+						d.setAdministrador(d.getnAdmin(), null);
+						d.setnAdmin(d.getnAdmin() - 1);
+						System.out.println("Administrador removido com sucesso!");
+					}
+				} else {
+					System.out.println("Operação cancelada!");
+				}
+			}
+		}
+	}
+	
+	static void swapListaAdmin(int a){
+		for (int i = a; i < d.getnAdmin() - 1; i++)
+			d.setAdministrador(i, d.getAdministradores(i + 1));
+
 	}
 
 	public static void removerCliente() {

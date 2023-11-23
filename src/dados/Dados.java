@@ -52,13 +52,13 @@ public class Dados {
 		this.nClientes = nClientes;
 	}
 	
-	//Adiministradores
+	//Administradores
 	
 	public Administrador[] getAdministradores() {
 		return administradores;
 	}
 	
-	public Administrador getAdministrador(int i) {
+	public Administrador getAdministradores(int i) {
 		return administradores[i];
 	}
 	
