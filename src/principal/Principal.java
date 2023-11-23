@@ -97,6 +97,11 @@ public class Principal {
 											listarCarrinho();
 											break;
 										case 4: // Simulação de pagar e zerar o carrinho
+											if(d.getnItensCarrinho() != 0) {
+												pagar();
+											}else {
+												System.out.println("Carrinho vazio. Adicione algum item.");
+											}
 											break;
 										default:
 												System.out.println("\\nOpção Invalida! Tente novamente.\\n");
@@ -601,7 +606,7 @@ public class Principal {
 		listarCarrinho();
 		clearBuffer(entrada);
 		int i = entrada.nextInt();
-		if(i < d.getnItensCarrinho() && i > 0) {
+		if(i < d.getnItensCarrinho() && i >= 0) {
 			swapListaCarrinho(i);
 			d.setCarrinho(d.getnItensCarrinho(), null);
 			d.setnItensCarrinho(d.getnItensCarrinho() - 1);
@@ -622,9 +627,9 @@ public class Principal {
 			for(int i = 0; i < d.getnItensCarrinho(); i++) {
 				System.out.println(i + "->" + d.getCarrinhos()[i].toString());
 			}
-			System.out.println("VALOR TOTAL -> R$" + precoCarrinho());
+			System.out.println("\nVALOR TOTAL -> R$" + precoCarrinho() + "\n");
 		}else {
-			System.out.println("Carrinho vazio!");
+			System.out.println("Carrinho vazio!\n");
 		}
 	}
 
@@ -634,6 +639,49 @@ public class Principal {
 
 	}
 
+	public static void pagar(){
+		listarCarrinho();
+		clearBuffer(entrada);
+		System.out.println("0 - Cancelar\n1- Confirmar\n");
+		int opc = entrada.nextInt();
+		switch (opc) {
+		case 0:
+			System.out.println("Operação cancelada.");
+			break;
+		case 1:
+			boolean login = false;
+			String email;
+			String endereco = null;
+			clearBuffer(entrada);
+			System.out.println("Confirme seu email: ");
+			email = entrada.nextLine();
+			for(int i = 0; i < d.getnClientes(); i++) {
+				if(d.getClientes()[i].getEmail().compareToIgnoreCase(email) == 0) {
+					login = true;
+					endereco = d.getClientes()[i].getEndereco();
+				}
+			}
+			if(login == true) {
+				for(int i = 0; i <= d.getnItensCarrinho() && i >= 0; i++) {
+					swapListaCarrinho(i);
+					d.setCarrinho(d.getnItensCarrinho(), null);
+					d.setnItensCarrinho(d.getnItensCarrinho() - 1);
+					System.out.println("APAGANDO");
+				}
+				System.out.println("Obrigado, pedido será entregue em " + endereco + "\nPagamento no ato da entrega.\n");
+			}else {
+				System.out.println("\nEmail inválido\n");
+				break;
+			}
+			
+			break;
+		default:
+			System.out.println("\nOpção inválida!\n");
+			break;
+		}
+		
+	}
+	
 	public static void listarAdministradores() {
 		for (int i = 0; i < d.getnAdmin(); i++) {
 			System.out.println(i + "->" + d.getAdministradores()[i].toString());

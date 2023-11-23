@@ -9,6 +9,12 @@ public class Cliente extends Usuario{
 		this.endereco = endereco;
 	}
 
+	
+	public String getEndereco() {
+		return endereco;
+	}
+
+
 	@Override
 	public String toString() {
 		return "Cliente [nome=" + nome + ", email=" + email + ", senha=" + senha + ", endereco=" + endereco + "]";
