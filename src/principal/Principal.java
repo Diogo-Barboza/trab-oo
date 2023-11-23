@@ -49,6 +49,15 @@ public class Principal {
 								case 5:
 									cadastrarItem();
 									break;
+								case 6:
+									editarItem();
+									break;
+								case 7:
+									listarItens();
+									break;
+								case 8:
+									removerItem();
+									break;
 								default:
 									System.out.println("\nOpção Invalida! Tente novamente.\n");
 									break;
@@ -155,6 +164,9 @@ public class Principal {
 		saida = saida + "3 - Excluir Restaurante\n";
 		saida = saida + "4 - Listar Restaurantes\n";
 		saida = saida + "5 - Adicionar Item ao Cardápio\n";
+		saida = saida + "6 - Editar Item\n";
+		saida = saida + "7 - Listar Itens do Cardápio\n";
+		saida = saida + "8 - Excluir Item do Cardápio\n";
 		return saida;
 	}
 
@@ -301,6 +313,68 @@ public class Principal {
 		preco = entrada.nextLine();
 		Item it = new Item(nome, categoria, descricao, restaurante_item, preco);
 		return it;
+	}
+	
+	public static boolean editarItem() {
+		int opc = -1;
+		String nome;
+		entrada.nextLine();
+		System.out.println("Digite o nome do item que deseja editar: ");
+		nome = entrada.nextLine();
+		for (int i = 0; i < d.getnItens(); i++) {
+			if (d.getItens()[i].getNome().compareToIgnoreCase(nome) == 0) {
+				System.out.println("O item a ser editado é: " + d.getItens()[i]);
+				System.out.println("0 - Cancelar\n1 - Continuar");
+				opc = entrada.nextInt();
+				if (opc == 1) {
+					Item r = lerDadosItens();
+					if (i < d.getnItens() && i >= 0) {
+						d.setItem(i, r);
+						System.out.println("Dados editados com sucesso");
+						return true;
+					}
+				} else {
+					System.out.println("Operação cancelada!");
+					return false;
+				}
+			}
+		}
+		return false;
+	}
+	
+	public static void listarItens() {
+		for (int i = 0; i < d.getnItens(); i++)
+			System.out.println(i + " -> " + d.getItens()[i].toString());
+	}
+	
+	public static void removerItem() {
+		int opc = -1;
+		String nome;
+		entrada.nextLine();
+		System.out.println("Digite o nome do Item que deseja remover: ");
+		nome = entrada.nextLine();
+		for (int i = 0; i < d.getnItens(); i++) {
+			if (d.getItens()[i].getNome().compareToIgnoreCase(nome) == 0) {
+				System.out.println("O item a ser removido é: " + d.getItens()[i]);
+				System.out.println("0 - Cancelar\n1 - Continuar");
+				opc = entrada.nextInt();
+				if (opc == 1) {
+					if (i < d.getnItens() && i >= 0) {
+						swapListaRestaurantes(i);
+						d.setItem(d.getnItens(), null);
+						d.setnItens(d.getnItens() - 1);
+						System.out.println("Item removido com sucesso!");
+					}
+				} else {
+					System.out.println("Operação cancelada!");
+				}
+			}
+		}
+	}
+	
+	public static void swapListaItens(int a) {
+		for (int i = a; i < d.getnItens() - 1; i++)
+			d.setItem(i, d.getItem(i + 1));
 	}
 	
 	public static void adicionarCarrinho() {
